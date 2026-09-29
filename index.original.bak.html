@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Download Credit Secrets - PDF Edition</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-color: #0b0c10;
+      --card-bg: #12141a;
+      --card-inner: #1a1d24;
+      --accent-orange: #ff6b00;
+      --accent-orange-hover: #e05e00;
+      --green-text: #22c55e;
+      --text-main: #ffffff;
+      --text-sub: #9ca3af;
+      --glow-color: rgba(255, 107, 0, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 40px 20px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .toast-notification {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-100px);
+      background: rgba(26, 29, 36, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(12px);
+      border-radius: 50px;
+      padding: 10px 20px 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      opacity: 0;
+      z-index: 1000;
+    }
+
+    .toast-notification.active {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    .toast-icon {
+      background: var(--green-text);
+      color: #000;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .toast-text {
+      font-size: 12px;
+      color: var(--text-sub);
+      text-align: left;
+    }
+
+    .toast-text strong {
+      color: var(--text-main);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 480px;
+      text-align: center;
+    }
+
+    .amazon-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .amazon-text {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .amazon-text span {
+      color: var(--accent-orange);
+    }
+
+    .divider {
+      color: #333842;
+      font-weight: 300;
+      font-size: 16px;
+    }
+
+    .digital-edition-tag {
+      background: rgba(255, 107, 0, 0.12);
+      border: 1px solid rgba(255, 107, 0, 0.3);
+      color: var(--accent-orange);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+    }
+
+    .main-title {
+      font-size: 26px;
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+      letter-spacing: -0.5px;
+    }
+
+    .main-title span {
+      color: var(--accent-orange);
+    }
+
+    .description {
+      font-size: 13px;
+      color: var(--text-sub);
+      line-height: 1.55;
+      margin-bottom: 28px;
+      padding: 0 10px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 0 55px var(--glow-color);
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .book-cover-wrapper {
+      margin: 0 auto 20px;
+      width: 170px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: #ffffff;
+    }
+
+    .book-cover-wrapper img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .features-list {
+      background: var(--card-inner);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: left;
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-main);
+    }
+
+    .feature-item .check {
+      background: var(--accent-orange);
+      color: #000;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+
+    .status-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 12px;
+    }
+
+    .file-status {
+      color: var(--green-text);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+    }
+
+    .file-status::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      background: var(--green-text);
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .price-tag {
+      color: var(--text-sub);
+      font-size: 11px;
+    }
+
+    .price-tag .strike {
+      text-decoration: line-through;
+      margin-right: 4px;
+    }
+
+    .price-tag .free {
+      color: var(--green-text);
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .progress-box {
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 14px 18px;
+      margin-bottom: 24px;
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-sub);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .progress-header span.highlight {
+      color: var(--accent-orange);
+    }
+
+    .progress-bar-bg {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      width: 82%;
+      height: 100%;
+      background: var(--accent-orange);
+      border-radius: 10px;
+    }
+
+    .steps-list {
+      text-align: left;
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 12px;
+      color: var(--text-sub);
+      line-height: 1.4;
+    }
+
+    .step-num {
+      background: rgba(255, 107, 0, 0.2);
+      color: var(--accent-orange);
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .cta-button {
+      width: 100%;
+      background: var(--accent-orange);
+      color: #000;
+      border: none;
+      padding: 16px 20px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 22px rgba(255, 107, 0, 0.35);
+      text-decoration: none;
+    }
+
+    .cta-button:hover {
+      background: var(--accent-orange-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 28px rgba(255, 107, 0, 0.45);
+    }
+
+    .footer-note {
+      font-size: 10px;
+      color: #555861;
+      margin-top: 14px;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toast-notification" id="toast">
+    <div class="toast-icon">✓</div>
+    <div class="toast-text">
+      <strong>RECENT DOWNLOAD</strong><br>
+      <span id="toast-username">@alex_reads</span> just unlocked Credit Secrets PDF!
+    </div>
+  </div>
+
+  <div class="container">
+    
+    <div class="amazon-badge">
+      <span class="amazon-text">amazon<span>.com</span></span>
+      <span class="divider">|</span>
+      <span class="digital-edition-tag">DIGITAL EDITION</span>
+    </div>
+
+    <h1 class="main-title">
+      DOWNLOAD <span>CREDIT SECRETS</span><br>PDF EDITION
+    </h1>
+
+    <p class="description">
+      Stop paying credit repair agencies thousands! Discover the exact legal blueprint used by Scott & Alison Hilton to erase negative items, fix errors, and take total financial control.
+    </p>
+
+    <div class="card">
+      <div class="book-cover-wrapper">
+        <img src="https://i.postimg.cc/4NNFNwQv/59e0d9c5da4141d997f9390b343aaf0a.jpg" alt="Credit Secrets Book Cover" referrerpolicy="no-referrer">
+      </div>
+
+      <div class="features-list">
+        <div class="feature-item">
+          <div class="check">✓</div>
+          <span>Full Uncut Edition: Complete 200+ pages</span>
+        </div>
+        <div class="feature-item">
+          <div class="check">✓</div>
+          <span>Step-by-Step Blueprint: DIY legal dispute strategies</span>
+        </div>
+        <div class="feature-item">
+          <div class="check">✓</div>
+          <span>Universal Compatibility: iOS, Android, Kindle &amp; PC</span>
+        </div>
+      </div>
+
+      <div class="status-row">
+        <div class="file-status">Instant PDF Access</div>
+        <div class="price-tag">
+          RETAIL PRICE <span class="strike">$37.00</span> <span class="free">FREE</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="progress-box">
+      <div class="progress-header">
+        <span class="highlight">Free Downloads Left: 18 Copies</span>
+        <span>82% Claimed</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill"></div>
+      </div>
+    </div>
+
+    <div class="steps-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div>Click the button below to start instant verification.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div>Complete ONE quick &amp; simple offer to unlock the file link.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div>Your Credit Secrets PDF download will start automatically!</div>
+      </div>
+    </div>
+
+    <!-- تم دمج رابط الكونت لوكر الخاص بك هنا -->
+    <a href="https://appcomplete.org/cl/i/pq3ve2" target="_blank" class="cta-button">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Complete 1 Offer to Download
+    </a>
+
+    <p class="footer-note">
+      *Verification is required to prevent automated bots &amp; ensure free access for real readers.
+    </p>
+
+  </div>
+
+  <script>
+    const usernames = [
+      '@alex_reads', '@mike_credit', '@sarah_finance', 
+      '@david_800score', '@john_d', '@lisa_m'
+    ];
+
+    const toast = document.getElementById('toast');
+    const toastUsername = document.getElementById('toast-username');
+
+    function showNotification() {
+      const randomUser = usernames[Math.floor(Math.random() * usernames.length)];
+      toastUsername.textContent = randomUser;
+      
+      toast.classList.add('active');
+
+      setTimeout(() => {
+        toast.classList.remove('active');
+      }, 4000);
+    }
+
+    setTimeout(showNotification, 2000);
+    setInterval(showNotification, 9000);
+  </script>
+
+</body>
+</html>
